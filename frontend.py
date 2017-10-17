@@ -3,16 +3,19 @@ import backend
 
 def selected_listbox(event):
     global selected_book
-    index=lb.curselection()[0]
-    selected_book=lb.get(index)
-    e1.delete(0, END)
-    e1.insert(END, selected_book[1])
-    e2.delete(0, END)
-    e2.insert(END, selected_book[2])
-    e3.delete(0, END)
-    e3.insert(END, selected_book[3])
-    e4.delete(0, END)
-    e4.insert(END, selected_book[4])
+    try:
+        index=lb.curselection()[0]
+        selected_book=lb.get(index)
+        e1.delete(0, END)
+        e1.insert(END, selected_book[1])
+        e2.delete(0, END)
+        e2.insert(END, selected_book[2])
+        e3.delete(0, END)
+        e3.insert(END, selected_book[3])
+        e4.delete(0, END)
+        e4.insert(END, selected_book[4])
+    except IndexError:
+        pass
 
 def command_view():
     lb.delete(0, END)
@@ -35,7 +38,6 @@ def command_update():
 def command_delete():
     backend.delete(selected_book[0])
     command_view()
-
 
 window=Tk()
 
