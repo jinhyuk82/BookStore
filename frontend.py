@@ -1,5 +1,7 @@
 from tkinter import *
-import backend
+from backend import Database
+
+database=Database("books.db")
 
 def selected_listbox(event):
     global selected_book
@@ -19,24 +21,24 @@ def selected_listbox(event):
 
 def command_view():
     lb.delete(0, END)
-    for rows in backend.view():
+    for rows in database.view():
         lb.insert(END, rows)
 
 def command_search():
     lb.delete(0, END)
-    for rows in backend.search(text_title.get(), text_author.get(), text_year.get(), text_isbn.get()):
+    for rows in database.search(text_title.get(), text_author.get(), text_year.get(), text_isbn.get()):
         lb.insert(END, rows)
 
 def command_add():
-    backend.insert(text_title.get(), text_author.get(), text_year.get(), text_isbn.get())
+    database.insert(text_title.get(), text_author.get(), text_year.get(), text_isbn.get())
     command_view()
 
 def command_update():
-    backend.update(selected_book[0], text_title.get(), text_author.get(), text_year.get(), text_isbn.get())
+    database.update(selected_book[0], text_title.get(), text_author.get(), text_year.get(), text_isbn.get())
     command_view()
 
 def command_delete():
-    backend.delete(selected_book[0])
+    database.delete(selected_book[0])
     command_view()
 
 window=Tk()
@@ -98,7 +100,5 @@ b5.grid(row=6, column=3)
 
 b6=Button(window, text="Close", width=18, command=window.destroy)
 b6.grid(row=7, column=3)
-
-command_view()
 
 window.mainloop()
