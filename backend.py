@@ -29,3 +29,6 @@ class Database():
     def delete(self, id):
         self.cur.execute("DELETE FROM book WHERE id=?", (id,))
         self.conn.commit()
+
+    def __del__(self):
+        self.conn.close()
